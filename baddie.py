@@ -10,25 +10,25 @@ class Baddie(pygame.sprite.Sprite):
         lvl_1 = pygame.image.load("sprites/LEVEL_1.png")
             
     def X_RIGHT(self, limit, speed):
-        while True:
+        if self.x <= limit:
             self.x += speed
-            if self.x <= limit:
-                self.line += 1
-
+        else:
+            self.line += 1
+            
     def X_LEFT(self, limit, speed):
-        while True:
+        if self.x >= limit:
             self.x -= speed
-            if self.x >= limit:
-                self.line += 1
-                
-    def Y_UP(self, limit, speed):
-        while True:
-            self.y -= speed
-            if self.y >= limit:
-                self.line += 1
-                
+        else:
+            self.line += 1
+            
     def Y_DOWN(self, limit, speed):
-        while True:
+        if self.y <= limit:
             self.y += speed
-            if self.y <= limit:
-                self.line += 1
+        else:
+            self.line += 1
+            
+    def Y_UP(self, limit, speed):
+        if self.y >= limit:
+            self.y -= speed
+        else:
+            self.line += 1

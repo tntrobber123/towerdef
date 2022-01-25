@@ -38,6 +38,7 @@ screen = pygame.display.set_mode(size)
 player_img = pygame.image.load("sprites/cursor.png")
 baddie_img = pygame.image.load("sprites/baddie.png")
 lvl_1 = pygame.image.load("sprites/LEVEL_1.png")
+gam3over = pygame.image.load("sprites/gameov3r.png")
 lvl = 1
 screen.blit(lvl_1, (0, 0))
 screen.blit(player_img, (0, 0))
@@ -63,9 +64,31 @@ def main():
         
         if b.hp > 0:
             if b.line == 0:
-                b.X_RIGHT(200, 5)
+                b.X_RIGHT(200, 2.5)
             if b.line == 1:
-                b.Y_UP(500, 5)
+                b.Y_UP(150, 2.5)
+            if b.line == 2:
+                b.X_LEFT(50, 2.5)
+            if b.line == 3:
+                b.Y_UP(50, 2.5)
+            if b.line == 4:
+                b.X_RIGHT(400, 2.5)
+            if b.line == 5:
+                b.Y_DOWN(400, 2.5)
+            if b.line == 6:
+                b.X_RIGHT(450, 2.5)
+            if b.line == 7:
+                screen.blit(gam3over, (0, 0))
+                pygame.display.flip()
+                time.sleep(3)
+                pygame.quit()
+                quit()
+                
+        pause = False
+        while pause == True:
+            # This is just here for pause purpose; 0 speed. the 1 means nothing
+            b.X_RIGHT(1, 0)
+            b.X_UP(1, 0)
             
         if p.x <= 0:
             p.x = 0
