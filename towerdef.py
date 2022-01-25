@@ -3,8 +3,9 @@ import time
 import random
 import player
 from player import Player
-#import baddie
-#from baddie import Baddie
+import baddie
+from baddie import Baddie
+b = Baddie()
 
 def draw():
     pygame.display.flip()
@@ -17,11 +18,19 @@ def draw_plr(p):
 def draw_lvl1():
     screen.blit(lvl_1, (0, 0))
     pygame.display.flip()
-    
-def draw_baddie():
-    screen.blit(baddie_img, (Baddie.x, Baddie.y))
-    pygame.display.flip
 
+def draw_baddie():
+    screen.blit(lvl_1, (0, 0))
+    screen.blit(baddie_img, (b.x, b.y))
+    pygame.display.flip()
+
+def draw_all(p):
+    screen.blit(lvl_1, (0, 0))
+    screen.blit(player_img, (p.x, p.y))
+    screen.blit(baddie_img, (b.x, b.y))
+    pygame.display.flip()
+
+# Load in all the code for images and stuff
 black = (0, 0, 0)
 white = (255, 255, 255)
 size = [750, 500]
@@ -39,8 +48,6 @@ def main():
     p = Player()
     done = False
 
-    # Level
-    
     lvl1_board = [("X", 0, 350, 200),
                   ("Y", 150, 200 ,350),
                   ("X", 50, 150, 200),
@@ -49,16 +56,17 @@ def main():
                   ("Y", 50, 400, 400),
                   ("X", 400, 400, 450)
     ]
-    """ Idk what to do 'bout it, but put baddie code here"""
-    #def pathx():
-    #    for item in lvl1_board:
-    #        print("hi")
-    #pathx()
-    #def pathy():
         
         
     # Events go here:    
     while True:
+        
+        if b.hp > 0:
+            if b.line == 0:
+                b.X_RIGHT(200, 5)
+            if b.line == 1:
+                b.Y_UP(500, 5)
+            
         if p.x <= 0:
             p.x = 0
         if p.x >= 700:
@@ -68,7 +76,7 @@ def main():
         if p.y >= 450:
             p.y = 450
         
-        draw_plr(p)
+        draw_all(p)
             
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
