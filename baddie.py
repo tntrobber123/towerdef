@@ -6,6 +6,7 @@ class Baddie(pygame.sprite.Sprite):
         self.y = 350
         self.hp = 5
         self.line = 0
+        self.pause = 1
         baddie_img = pygame.image.load("sprites/baddie.png")
         lvl_1 = pygame.image.load("sprites/LEVEL_1.png")
             

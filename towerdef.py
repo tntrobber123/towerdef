@@ -48,47 +48,31 @@ def main():
     pygame.init()
     p = Player()
     done = False
-
-    lvl1_board = [("X", 0, 350, 200),
-                  ("Y", 150, 200 ,350),
-                  ("X", 50, 150, 200),
-                  ("Y", 50, 50, 150),
-                  ("X", 50, 50, 400),
-                  ("Y", 50, 400, 400),
-                  ("X", 400, 400, 450)
-    ]
-        
         
     # Events go here:    
     while True:
-        
-        if b.hp > 0:
-            if b.line == 0:
-                b.X_RIGHT(200, 5)
-            if b.line == 1:
-                b.Y_UP(150, 5)
-            if b.line == 2:
-                b.X_LEFT(50, 5)
-            if b.line == 3:
-                b.Y_UP(50, 5)
-            if b.line == 4:
-                b.X_RIGHT(400, 5)
-            if b.line == 5:
-                b.Y_DOWN(400, 5)
-            if b.line == 6:
-                b.X_RIGHT(450, 5)
-            if b.line == 7:
-                screen.blit(gam3over, (0, 0))
-                pygame.display.flip()
-                time.sleep(3)
-                pygame.quit()
-                quit()
-                
-        pause = False
-        while pause == True:
-            # This is just here for pause purpose; 0 speed. the 1 means nothing
-            b.X_RIGHT(1, 0)
-            b.X_UP(1, 0)
+        if b.pause == 0:
+            if b.hp > 0:
+                if b.line == 0:
+                    b.X_RIGHT(200, 5)
+                if b.line == 1:
+                    b.Y_UP(150, 5)
+                if b.line == 2:
+                    b.X_LEFT(50, 5)
+                if b.line == 3:
+                    b.Y_UP(50, 5)
+                if b.line == 4:
+                    b.X_RIGHT(400, 5)
+                if b.line == 5:
+                    b.Y_DOWN(400, 5)
+                if b.line == 6:
+                    b.X_RIGHT(450, 5)
+                if b.line == 7:
+                    screen.blit(gam3over, (0, 0))
+                    pygame.display.flip()
+                    time.sleep(3)
+                    pygame.quit()
+                    quit()
             
         if p.x <= 0:
             p.x = 0
@@ -129,6 +113,15 @@ def main():
                     draw_lvl1()
                     screen.blit(player_img, (p.x, p.y))
                     draw()
+                if event.key == pygame.K_RETURN:
+                    if b.pause == 1:
+                        b.pause = 0
+                    else:
+                        b.pause = 1
+                    print(b.pause)
+                        
+                if event.key == pygame.K_SPACE:
+                    print("boop")
                     
                     
     
