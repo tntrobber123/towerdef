@@ -6,6 +6,8 @@ from player import Player
 import baddie
 from baddie import Baddie
 b = Baddie()
+import towers
+from towers import tower
 
 def draw():
     pygame.display.flip()
@@ -53,6 +55,7 @@ def main():
     while True:
         if b.pause == 0:
             if b.hp > 0:
+                # Level 1
                 if b.line == 0:
                     b.X_RIGHT(200, 5)
                 if b.line == 1:
@@ -67,7 +70,9 @@ def main():
                     b.Y_DOWN(400, 5)
                 if b.line == 6:
                     b.X_RIGHT(450, 5)
-                if b.line == 7:
+                    b.line = 42
+                    
+                if b.line == 42:
                     screen.blit(gam3over, (0, 0))
                     pygame.display.flip()
                     time.sleep(3)
@@ -121,6 +126,7 @@ def main():
                     print(b.pause)
                         
                 if event.key == pygame.K_SPACE:
+                    
                     print("boop")
                     
                     
