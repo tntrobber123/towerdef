@@ -7,7 +7,8 @@ import baddie
 from baddie import Baddie
 b = Baddie()
 import towers
-from towers import tower
+from towers import Tower
+t = Tower()
 
 def draw():
     pygame.display.flip()
@@ -28,8 +29,11 @@ def draw_baddie():
 
 def draw_all(p):
     screen.blit(lvl_1, (0, 0))
-    screen.blit(player_img, (p.x, p.y))
+    #for item in towers:
+     #   screen.blit(basetower_img, (t.x, t.y))
+    screen.blit(basetower_img, (t.x, t.y))
     screen.blit(baddie_img, (b.x, b.y))
+    screen.blit(player_img, (p.x, p.y))
     pygame.display.flip()
 
 # Load in all the code for images and stuff
@@ -39,6 +43,7 @@ size = [750, 500]
 screen = pygame.display.set_mode(size)
 player_img = pygame.image.load("sprites/cursor.png")
 baddie_img = pygame.image.load("sprites/baddie.png")
+basetower_img = pygame.image.load("sprites/basic.png")
 lvl_1 = pygame.image.load("sprites/LEVEL_1.png")
 gam3over = pygame.image.load("sprites/gameov3r.png")
 lvl = 1
@@ -47,6 +52,11 @@ screen.blit(player_img, (0, 0))
 draw()
 
 def main():
+    towers = []
+    def placetower():
+        t.x = p.x
+        t.y = p.y
+        
     pygame.init()
     p = Player()
     done = False
@@ -54,6 +64,9 @@ def main():
     # Events go here:    
     while True:
         if b.pause == 0:
+            # Tower code:
+            
+            # Baddie code:
             if b.hp > 0:
                 # Level 1
                 if b.line == 0:
@@ -123,11 +136,10 @@ def main():
                         b.pause = 0
                     else:
                         b.pause = 1
-                    print(b.pause)
-                        
+
                 if event.key == pygame.K_SPACE:
-                    
                     print("boop")
+                    placetower()
                     
                     
     
