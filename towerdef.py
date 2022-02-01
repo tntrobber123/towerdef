@@ -60,47 +60,44 @@ baddie_img = pygame.image.load("sprites/baddie.png")
 basetower_img = pygame.image.load("sprites/basic.png")
 lvl_1 = pygame.image.load("sprites/LEVEL_1.png")
 gam3over = pygame.image.load("sprites/gameov3r.png")
-lvl = 1
+lvl = 0
 screen.blit(lvl_1, (0, 0))
 draw()
+
+def level_1():
+    if b.hp > 0:
+        if b.line == 0:
+            b.X_RIGHT(200, 5)
+        if b.line == 1:
+            b.Y_UP(150, 5)
+        if b.line == 2:
+            b.X_LEFT(50, 5)
+        if b.line == 3:
+            b.Y_UP(50, 5)
+        if b.line == 4:
+            b.X_RIGHT(400, 5)
+        if b.line == 5:
+            b.Y_DOWN(400, 5)
+        if b.line == 6:
+            b.X_RIGHT(450, 5)
+            b.line = 42
+                    
+        if b.line == 42:
+            screen.blit(gam3over, (0, 0))  
+            pygame.display.flip()
+            time.sleep(3)
+            pygame.quit()
+            quit()
+                
+    if b.hp <= 0:
+        print("you win")
+        pygame.quit()
+        quit()
 
 def main():
     towernum = 0
     roundnum = 0
     num_per_round = 3
-    
-    def level_1():
-        if b.hp > 0:
-            if b.line == 0:
-                b.X_RIGHT(200, 5)
-                print("working")
-            if b.line == 1:
-                b.Y_UP(150, 5)
-            if b.line == 2:
-                b.X_LEFT(50, 5)
-            if b.line == 3:
-                b.Y_UP(50, 5)
-            if b.line == 4:
-                b.X_RIGHT(400, 5)
-            if b.line == 5:
-                b.Y_DOWN(400, 5)
-            if b.line == 6:
-                b.X_RIGHT(450, 5)
-                b.line = 42
-                    
-            if b.line == 42:
-                screen.blit(gam3over, (0, 0))
-                pygame.display.flip()
-                time.sleep(3)
-                pygame.quit()
-                quit()
-            
-            else:
-                print(b.line)
-                print("you win")
-                pygame.quit()
-                quit()
-    level_1()
 
     def placetower():
         if towernum == 0:
@@ -119,9 +116,13 @@ def main():
         
     # Events go here:    
     while True:
+        
         if towernum == 3:
             towernum = 0
         if b.pause == 0:
+            # Baddie code
+            if lvl == 0:
+                level_1()
             # Tower code:
             dist = math.sqrt(((b.x + 25) - (t.x + 25))**2 + ((b.y + 25) - (t.y + 25))**2)
             dist2 = math.sqrt(((b.x + 25) - (t2.x + 25))**2 + ((b.y + 25) - (t2.y + 25))**2)
