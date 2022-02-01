@@ -8,11 +8,17 @@ import baddie
 from baddie import Baddie
 b = Baddie()
 import towers
+
 from towers import Tower
 t = Tower()
 import towers2
+
 from towers2 import Tower2
 t2 = Tower2()
+import towers3
+
+from towers3 import Tower3
+t3 = Tower3()
 
 def draw():
     pygame.display.flip()
@@ -37,6 +43,8 @@ def draw_all(p):
     screen.blit(basic_range_ring_img, (t.x - 125, t.y - 125))
     screen.blit(basetower_img, (t2.x, t2.y))
     screen.blit(basic_range_ring_img, (t2.x - 125, t2.y - 125))
+    screen.blit(basetower_img, (t3.x, t3.y))
+    screen.blit(basic_range_ring_img, (t3.x - 125, t3.y - 125))
     screen.blit(baddie_img, (b.x, b.y))
     screen.blit(player_img, (p.x, p.y))
     pygame.display.flip()
@@ -55,16 +63,55 @@ gam3over = pygame.image.load("sprites/gameov3r.png")
 lvl = 1
 screen.blit(lvl_1, (0, 0))
 draw()
-towernum = 0
 
 def main():
+    towernum = 0
+    roundnum = 0
+    num_per_round = 3
+    
+    def level_1():
+        if b.hp > 0:
+            if b.line == 0:
+                b.X_RIGHT(200, 5)
+                print("working")
+            if b.line == 1:
+                b.Y_UP(150, 5)
+            if b.line == 2:
+                b.X_LEFT(50, 5)
+            if b.line == 3:
+                b.Y_UP(50, 5)
+            if b.line == 4:
+                b.X_RIGHT(400, 5)
+            if b.line == 5:
+                b.Y_DOWN(400, 5)
+            if b.line == 6:
+                b.X_RIGHT(450, 5)
+                b.line = 42
+                    
+            if b.line == 42:
+                screen.blit(gam3over, (0, 0))
+                pygame.display.flip()
+                time.sleep(3)
+                pygame.quit()
+                quit()
+            
+            else:
+                print(b.line)
+                print("you win")
+                pygame.quit()
+                quit()
+    level_1()
+
     def placetower():
         if towernum == 0:
             t.x = p.x
             t.y = p.y
-        else:
+        if towernum == 1:
             t2.x = p.x
             t2.y = p.y
+        if towernum == 2:
+            t3.x = p.x
+            t3.y = p.y
         
     pygame.init()
     p = Player()
@@ -72,45 +119,21 @@ def main():
         
     # Events go here:    
     while True:
+        if towernum == 3:
+            towernum = 0
         if b.pause == 0:
             # Tower code:
             dist = math.sqrt(((b.x + 25) - (t.x + 25))**2 + ((b.y + 25) - (t.y + 25))**2)
             dist2 = math.sqrt(((b.x + 25) - (t2.x + 25))**2 + ((b.y + 25) - (t2.y + 25))**2)
+            dist3 = math.sqrt(((b.x + 25) - (t3.x + 25))**2 + ((b.y + 25) - (t3.y + 25))**2)
             dist -= 50
             if dist <= t.range:
                 b.hp -= t.dmg
             if dist2 <= t2.range:
                 b.hp -= t2.dmg
+            if dist3 <= t3.range:
+                b.hp -= t3.dmg
             # Baddie code:
-            if b.hp > 0:
-                # Level 1
-                if b.line == 0:
-                    b.X_RIGHT(200, 5)
-                if b.line == 1:
-                    b.Y_UP(150, 5)
-                if b.line == 2:
-                    b.X_LEFT(50, 5)
-                if b.line == 3:
-                    b.Y_UP(50, 5)
-                if b.line == 4:
-                    b.X_RIGHT(400, 5)
-                if b.line == 5:
-                    b.Y_DOWN(400, 5)
-                if b.line == 6:
-                    b.X_RIGHT(450, 5)
-                    b.line = 42
-                    
-                if b.line == 42:
-                    screen.blit(gam3over, (0, 0))
-                    pygame.display.flip()
-                    time.sleep(3)
-                    pygame.quit()
-                    quit()
-                
-            else:
-                print("you win")
-                pygame.quit()
-                quit()
             
         if p.x <= 0:
             p.x = 0
@@ -156,17 +179,10 @@ def main():
                         b.pause = 0
                     else:
                         b.pause = 1
-                        
-                if event.key == pygame.K_1:
-                    towernum = 0
-                    print(towernum)
-                    
-                if event.key == pygame.K_2:
-                    towernum = 1
-                    print(towernum)
                     
                 if event.key == pygame.K_SPACE:
                     placetower()
+                    towernum += 1
                     
                     
     
