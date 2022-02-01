@@ -1,6 +1,7 @@
 import pygame
 import time
 import random
+import math
 import player
 from player import Player
 import baddie
@@ -65,7 +66,11 @@ def main():
     while True:
         if b.pause == 0:
             # Tower code:
-            
+            dist = math.sqrt((b.x - t.x)**2 + (b.y - t.y)**2)
+            dist -= 50
+            if dist <= t.range:
+                print(b.hp)
+                b.hp -= t.dmg
             # Baddie code:
             if b.hp > 0:
                 # Level 1
@@ -91,6 +96,11 @@ def main():
                     time.sleep(3)
                     pygame.quit()
                     quit()
+                
+            else:
+                print("you win")
+                pygame.quit()
+                quit()
             
         if p.x <= 0:
             p.x = 0

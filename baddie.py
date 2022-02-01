@@ -4,7 +4,7 @@ class Baddie(pygame.sprite.Sprite):
     def __init__(self):
         self.x = 0
         self.y = 350
-        self.hp = 5
+        self.hp = 300
         self.line = 0
         self.pause = 1
         baddie_img = pygame.image.load("sprites/baddie.png")
