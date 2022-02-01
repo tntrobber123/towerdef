@@ -59,12 +59,12 @@ towernum = 0
 
 def main():
     def placetower():
-        #if towernum == 0:
-        t.x = p.x
-        t.y = p.y
-     #   else:
-      #      t2.x = p.x
-       #     t2.y = p.y
+        if towernum == 0:
+            t.x = p.x
+            t.y = p.y
+        else:
+            t2.x = p.x
+            t2.y = p.y
         
     pygame.init()
     p = Player()
@@ -157,12 +157,12 @@ def main():
                     else:
                         b.pause = 1
                         
-                if event.key == pygame.K_LESS:
-                    towernum -= 1
+                if event.key == pygame.K_1:
+                    towernum = 0
                     print(towernum)
                     
-                if event.key == pygame.K_GREATER:
-                    towernum += 1
+                if event.key == pygame.K_2:
+                    towernum = 1
                     print(towernum)
                     
                 if event.key == pygame.K_SPACE:
