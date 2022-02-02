@@ -67,6 +67,7 @@ num_per_round = 3
 
 
 def level_1():
+    global num_per_round
     if b.hp > 0:
         if b.line == 0:
             b.X_RIGHT(200, 5)
@@ -88,6 +89,19 @@ def level_1():
             screen.blit(gam3over, (0, 0))  
             pygame.display.flip()
             time.sleep(3)
+            pygame.quit()
+            quit()
+            
+    if b.hp < 1:
+        if num_per_round >= 0:
+            b.x = 0
+            b.y = 350
+            b.hp = 250
+            b.line = 0
+            num_per_round -= 1
+            
+        if num_per_round < 0:
+            print("you win!")
             pygame.quit()
             quit()
 
@@ -116,14 +130,7 @@ def main():
         if towernum == 3:
             towernum = 0
         if b.pause == 0:
-            # Baddie code
-            if b.hp < 0:
-                if num_per_round > 0:
-                    b.x = 0
-                    b.y = 350
-                    b.line = 0
-                    num_per_round -= 1
-                    
+            level_1()
             # Tower code:
             dist = math.sqrt(((b.x + 25) - (t.x + 25))**2 + ((b.y + 25) - (t.y + 25))**2)
             dist2 = math.sqrt(((b.x + 25) - (t2.x + 25))**2 + ((b.y + 25) - (t2.y + 25))**2)
