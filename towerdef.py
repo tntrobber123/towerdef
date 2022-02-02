@@ -2,23 +2,24 @@ import pygame
 import time
 import random
 import math
-import player
 from player import Player
-import baddie
 from baddie import Baddie
 b = Baddie()
-import towers
-
+# Basic (basic towers)
 from towers import Tower
 t = Tower()
-import towers2
-
 from towers2 import Tower2
 t2 = Tower2()
-import towers3
-
 from towers3 import Tower3
 t3 = Tower3()
+# Gatlings (speed towers)
+from speedtwr import Speed
+s = Speed()
+from speedtwr2 import Speed2
+s2 = Speed2()
+from speedtwr3 import Speed3
+s3 = Speed3()
+
 
 def draw():
     pygame.display.flip()
@@ -45,6 +46,12 @@ def draw_all(p):
     screen.blit(basic_range_ring_img, (t2.x - 125, t2.y - 125))
     screen.blit(basetower_img, (t3.x, t3.y))
     screen.blit(basic_range_ring_img, (t3.x - 125, t3.y - 125))
+    screen.blit(speed, (s.x, s.y))
+    screen.blit(speed_range_ring, (s.x - 50, s.y - 50))
+    screen.blit(speed, (s2.x, s2.y))
+    screen.blit(speed_range_ring, (s2.x - 50, s2.y - 50))
+    screen.blit(speed, (s3.x, s3.y))
+    screen.blit(speed_range_ring, (s3.x - 50, s3.y - 50))
     screen.blit(baddie_img, (b.x, b.y))
     screen.blit(player_img, (p.x, p.y))
     pygame.display.flip()
@@ -60,14 +67,17 @@ baddie_img = pygame.image.load("sprites/baddie.png")
 basetower_img = pygame.image.load("sprites/basic.png")
 lvl_1 = pygame.image.load("sprites/LEVEL_1.png")
 gam3over = pygame.image.load("sprites/gameov3r.png")
+speed = pygame.image.load("sprites/speed.png")
+speed_range_ring = pygame.image.load("sprites/speed_range_ring.png")
 lvl = 0
 screen.blit(lvl_1, (0, 0))
 draw()
 num_per_round = 3
-
+watermelons = 25
 
 def level_1():
     global num_per_round
+    global watermelons
     if b.hp > 0:
         if b.line == 0:
             b.X_RIGHT(200, 5)
@@ -93,10 +103,11 @@ def level_1():
             quit()
             
     if b.hp < 1:
+        watermelons += 5
         if num_per_round >= 0:
             b.x = 0
             b.y = 350
-            b.hp = 250
+            b.hp = 500
             b.line = 0
             num_per_round -= 1
             
@@ -107,18 +118,33 @@ def level_1():
 
 def main():
     towernum = 0
+    towersel = "basic"
     roundnum = 0
 
     def placetower():
-        if towernum == 0:
-            t.x = p.x
-            t.y = p.y
-        if towernum == 1:
-            t2.x = p.x
-            t2.y = p.y
-        if towernum == 2:
-            t3.x = p.x
-            t3.y = p.y
+        if towersel == "basic":
+            if towernum == 0:
+                t.x = p.x
+                t.y = p.y
+            if towernum == 1:
+                t2.x = p.x
+                t2.y = p.y
+            if towernum == 2:
+                t3.x = p.x
+                t3.y = p.y
+                
+        if towersel == "speed":
+            if towernum == 0:
+                s.x = p.x
+                s.y = p.y
+        if towersel == "speed":
+            if towernum == 1:
+                s2.x = p.x
+                s2.y = p.y
+        if towersel == "speed":
+            if towernum == 2:
+                s3.x = p.x
+                s3.y = p.y
         
     pygame.init()
     p = Player()
@@ -131,19 +157,41 @@ def main():
             towernum = 0
         if b.pause == 0:
             level_1()
-            # Tower code:
+            
+            
+            # Basic tower code:
             dist = math.sqrt(((b.x + 25) - (t.x + 25))**2 + ((b.y + 25) - (t.y + 25))**2)
             dist2 = math.sqrt(((b.x + 25) - (t2.x + 25))**2 + ((b.y + 25) - (t2.y + 25))**2)
             dist3 = math.sqrt(((b.x + 25) - (t3.x + 25))**2 + ((b.y + 25) - (t3.y + 25))**2)
             dist -= 50
+            dist2 -= 50
+            dist3 -= 50
+            
             if dist <= t.range:
                 b.hp -= t.dmg
             if dist2 <= t2.range:
                 b.hp -= t2.dmg
             if dist3 <= t3.range:
                 b.hp -= t3.dmg
-            # Baddie code:
             
+            speeddist = math.sqrt(((b.x + 25) - (s.x + 25))**2 + ((b.y + 25) - (s.y + 25))**2)
+            speeddist2 = math.sqrt(((b.x + 25) - (s2.x + 25))**2 + ((b.y + 25) - (s2.y + 25))**2)
+            speeddist3 = math.sqrt(((b.x + 25) - (s3.x + 25))**2 + ((b.y + 25) - (s3.y + 25))**2)
+
+            speeddist -= 50
+            speeddist2 -= 50
+            speeddist3 -= 50
+            
+            if speeddist <= s.range:
+                b.hp -= s.dmg
+                print(b.hp)
+            if speeddist2 <= s2.range:
+                b.hp -= s2.dmg
+                print(b.hp)
+            if speeddist3 <= s3.range:
+                b.hp -= s3.dmg
+                print(b.hp)
+
         if p.x <= 0:
             p.x = 0
         if p.x >= 700:
@@ -192,6 +240,15 @@ def main():
                 if event.key == pygame.K_SPACE:
                     placetower()
                     towernum += 1
+                    
+                if event.key == pygame.K_1:
+                    towersel = "basic"
+                    
+                if event.key == pygame.K_2:
+                    towersel = "speed"
+                    
+                if event.key == pygame.K_3:
+                    towersel = "sniper"
                     
                     
     

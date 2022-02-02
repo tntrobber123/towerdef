@@ -1,8 +1,8 @@
 import pygame
 
-class Tower(pygame.sprite.Sprite):
+class Speed2(pygame.sprite.Sprite):
     def __init__(self):
         self.x = 1000
         self.y = 1000
-        self.range = 150
+        self.range = 50
         self.dmg = 15
