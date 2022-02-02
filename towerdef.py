@@ -63,6 +63,8 @@ gam3over = pygame.image.load("sprites/gameov3r.png")
 lvl = 0
 screen.blit(lvl_1, (0, 0))
 draw()
+num_per_round = 3
+
 
 def level_1():
     if b.hp > 0:
@@ -88,16 +90,10 @@ def level_1():
             time.sleep(3)
             pygame.quit()
             quit()
-                
-    if b.hp <= 0:
-        print("you win")
-        pygame.quit()
-        quit()
 
 def main():
     towernum = 0
     roundnum = 0
-    num_per_round = 3
 
     def placetower():
         if towernum == 0:
@@ -116,13 +112,18 @@ def main():
         
     # Events go here:    
     while True:
-        
+        global num_per_round
         if towernum == 3:
             towernum = 0
         if b.pause == 0:
             # Baddie code
-            if lvl == 0:
-                level_1()
+            if b.hp < 0:
+                if num_per_round > 0:
+                    b.x = 0
+                    b.y = 350
+                    b.line = 0
+                    num_per_round -= 1
+                    
             # Tower code:
             dist = math.sqrt(((b.x + 25) - (t.x + 25))**2 + ((b.y + 25) - (t.y + 25))**2)
             dist2 = math.sqrt(((b.x + 25) - (t2.x + 25))**2 + ((b.y + 25) - (t2.y + 25))**2)
