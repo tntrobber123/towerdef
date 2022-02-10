@@ -4,11 +4,11 @@ class Baddie(pygame.sprite.Sprite):
     def __init__(self):
         self.x = 0
         self.y = 350
-        self.hp = 500
+        self.hp = 450
+        self.def_hp = 300
+        self.hp_mod = 1
         self.line = 0
         self.pause = 1
-        baddie_img = pygame.image.load("sprites/baddie.png")
-        lvl_1 = pygame.image.load("sprites/LEVEL_1.png")
             
     def X_RIGHT(self, limit, speed):
         if self.x <= limit:

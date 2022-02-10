@@ -5,6 +5,7 @@ import math
 from player import Player
 from baddie import Baddie
 b = Baddie()
+
 # Basic (basic towers)
 from towers import Tower
 t = Tower()
@@ -12,6 +13,7 @@ from towers2 import Tower2
 t2 = Tower2()
 from towers3 import Tower3
 t3 = Tower3()
+
 # Gatlings (speed towers)
 from speedtwr import Speed
 s = Speed()
@@ -20,6 +22,13 @@ s2 = Speed2()
 from speedtwr3 import Speed3
 s3 = Speed3()
 
+# Snipers (range towers)
+from sniper import Sniper
+r = Sniper()
+from sniper2 import Sniper2
+r2 = Sniper2()
+from sniper3 import Sniper3
+r3 = Sniper3()
 
 def draw():
     pygame.display.flip()
@@ -52,7 +61,13 @@ def draw_all(p):
     screen.blit(speed_range_ring, (s2.x - 50, s2.y - 50))
     screen.blit(speed, (s3.x, s3.y))
     screen.blit(speed_range_ring, (s3.x - 50, s3.y - 50))
-    screen.blit(baddie_img, (b.x, b.y))
+    screen.blit(sniper, (r.x, r.y))
+    screen.blit(sniper, (r2.x, r2.y))
+    screen.blit(sniper, (r3.x, r3.y))
+    if rnd <= 2:
+        screen.blit(baddie_img, (b.x, b.y))
+    if rnd == 3:
+        screen.blit(boss, (b.x, b.y))
     screen.blit(player_img, (p.x, p.y))
     pygame.display.flip()
 
@@ -69,30 +84,36 @@ lvl_1 = pygame.image.load("sprites/LEVEL_1.png")
 gam3over = pygame.image.load("sprites/gameov3r.png")
 speed = pygame.image.load("sprites/speed.png")
 speed_range_ring = pygame.image.load("sprites/speed_range_ring.png")
+boss = pygame.image.load("sprites/boss.png")
+sniper = pygame.image.load("sprites/heavy.png")
+
+# Vars:
 lvl = 0
 screen.blit(lvl_1, (0, 0))
 draw()
-num_per_round = 3
+num_per_round = 2
 watermelons = 25
+rnd = 0
 
 def level_1():
+    global rnd
     global num_per_round
     global watermelons
     if b.hp > 0:
         if b.line == 0:
-            b.X_RIGHT(200, 5)
+            b.X_RIGHT(200, 2.5)
         if b.line == 1:
-            b.Y_UP(150, 5)
+            b.Y_UP(150, 2.5)
         if b.line == 2:
-            b.X_LEFT(50, 5)
+            b.X_LEFT(50, 2.5)
         if b.line == 3:
-            b.Y_UP(50, 5)
+            b.Y_UP(50, 2.5)
         if b.line == 4:
-            b.X_RIGHT(400, 5)
+            b.X_RIGHT(400, 2.5)
         if b.line == 5:
-            b.Y_DOWN(400, 5)
+            b.Y_DOWN(400, 2.5)
         if b.line == 6:
-            b.X_RIGHT(450, 5)
+            b.X_RIGHT(450, 2.5)
             b.line = 42
                     
         if b.line == 42:
@@ -104,19 +125,64 @@ def level_1():
             
     if b.hp < 1:
         watermelons += 5
+        b.hp_mod += .5
+        print("you have", watermelons, "watermelons!")
         if num_per_round >= 0:
             b.x = 0
             b.y = 350
-            b.hp = 500
+            b.hp = b.def_hp * b.hp_mod
             b.line = 0
             num_per_round -= 1
+        
+        if num_per_round == 0:
             
-        if num_per_round < 0:
-            print("you win!")
-            pygame.quit()
-            quit()
+            if rnd == 3:
+                b.x = 0
+                b.y = 350
+                num_per_round = 1
+                watermelons += 150
+                b.pause = 1
+                b.line = 0
+                b.hp = 50000
+                rnd = 999
+            
+            if rnd == 2:
+                b.x = 0
+                b.y = 350
+                num_per_round = 1
+                watermelons += 100
+                b.pause = 1
+                b.line = 0
+                b.hp = 50000
+                rnd = 3
+                
+            if rnd == 1:
+                b.x = 0
+                b.y = 350
+                num_per_round = 2
+                watermelons += 100
+                b.pause = 1
+                b.hp = 450
+                b.hp_mod += .25
+                b.line = 0
+                rnd = 2
+            
+            if rnd == 0:
+                num_per_round = 5
+                watermelons += 50
+                b.hp = 450
+                b.pause = 1
+                b.line = 0
+                rnd = 1
+                
+            if rnd == 999:
+                print("You Win!")
+                pygame.quit()
+                quit()
+            
 
 def main():
+    #m.wdigit1_draw()
     towernum = 0
     towersel = "basic"
     roundnum = 0
@@ -137,14 +203,23 @@ def main():
             if towernum == 0:
                 s.x = p.x
                 s.y = p.y
-        if towersel == "speed":
             if towernum == 1:
                 s2.x = p.x
                 s2.y = p.y
-        if towersel == "speed":
             if towernum == 2:
                 s3.x = p.x
                 s3.y = p.y
+        
+        if towersel == "sniper":
+            if towernum == 0:
+                r.x = p.x
+                r.y = p.y
+            if towernum == 1:
+                r2.x = p.x
+                r2.y = p.y
+            if towernum == 2:
+                r3.x = p.x
+                r3.y = p.y
         
     pygame.init()
     p = Player()
@@ -184,13 +259,25 @@ def main():
             
             if speeddist <= s.range:
                 b.hp -= s.dmg
-                print(b.hp)
             if speeddist2 <= s2.range:
                 b.hp -= s2.dmg
-                print(b.hp)
             if speeddist3 <= s3.range:
                 b.hp -= s3.dmg
-                print(b.hp)
+            
+            sniperdist = math.sqrt(((b.x + 25) - (r.x + 25))**2 + ((b.y + 25) - (r.y + 25))**2)
+            sniperdist2 = math.sqrt(((b.x + 25) - (r2.x + 25))**2 + ((b.y + 25) - (r2.y + 25))**2)
+            sniperdist3 = math.sqrt(((b.x + 25) - (r3.x + 25))**2 + ((b.y + 25) - (r3.y + 25))**2)
+
+            sniperdist -= 50
+            sniperdist2 -= 50
+            sniperdist3 -= 50
+            
+            if sniperdist <= r.range:
+                b.hp -= r.dmg
+            if sniperdist2 <= r2.range:
+                b.hp -= r2.dmg
+            if sniperdist3 <= r3.range:
+                b.hp -= r3.dmg
 
         if p.x <= 0:
             p.x = 0
@@ -238,8 +325,22 @@ def main():
                         b.pause = 1
                     
                 if event.key == pygame.K_SPACE:
-                    placetower()
-                    towernum += 1
+                    global watermelons
+                    if towersel == "basic":
+                        if watermelons >= 25:
+                            placetower()
+                            towernum += 1
+                            watermelons -= 25
+                    if towersel == "speed":
+                        if watermelons >= 30:
+                            placetower()
+                            towernum += 1
+                            watermelons -= 30
+                    if towersel == "sniper":
+                        if watermelons >= 50:
+                            placetower()
+                            towernum += 1
+                            watermelons -=50
                     
                 if event.key == pygame.K_1:
                     towersel = "basic"

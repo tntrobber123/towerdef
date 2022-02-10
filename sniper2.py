@@ -1,8 +1,8 @@
 import pygame
 
-class Tower3(pygame.sprite.Sprite):
+class Sniper2(pygame.sprite.Sprite):
     def __init__(self):
         self.x = 1000
         self.y = 1000
-        self.range = 150
-        self.dmg = 5
+        self.range = 500
+        self.dmg = 1
