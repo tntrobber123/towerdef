@@ -4,7 +4,7 @@ class Baddie(pygame.sprite.Sprite):
     def __init__(self):
         self.x = 0
         self.y = 350
-        self.hp = 450
+        self.hp = 550
         self.def_hp = 300
         self.hp_mod = 1
         self.line = 0

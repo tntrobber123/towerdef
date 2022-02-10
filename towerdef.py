@@ -48,6 +48,9 @@ def draw_baddie():
     pygame.display.flip()
 
 def draw_all(p):
+    global frame_s
+    global frame_s2
+    global frame_s3
     screen.blit(lvl_1, (0, 0))
     screen.blit(basetower_img, (t.x, t.y))
     screen.blit(basic_range_ring_img, (t.x - 125, t.y - 125))
@@ -55,18 +58,31 @@ def draw_all(p):
     screen.blit(basic_range_ring_img, (t2.x - 125, t2.y - 125))
     screen.blit(basetower_img, (t3.x, t3.y))
     screen.blit(basic_range_ring_img, (t3.x - 125, t3.y - 125))
-    screen.blit(speed, (s.x, s.y))
+    
+    if frame_s < 4:
+        screen.blit(speed, (s.x, s.y))
+    if frame_s >= 4:
+        screen.blit(speed2, (s.x, s.y))
     screen.blit(speed_range_ring, (s.x - 50, s.y - 50))
-    screen.blit(speed, (s2.x, s2.y))
+    
+    if frame_s2 < 4:
+        screen.blit(speed, (s2.x, s2.y))
+    if frame_s2 >= 4:
+        screen.blit(speed2, (s2.x, s2.y))
     screen.blit(speed_range_ring, (s2.x - 50, s2.y - 50))
-    screen.blit(speed, (s3.x, s3.y))
+    
+    if frame_s3 < 4:
+        screen.blit(speed, (s3.x, s3.y))
+    if frame_s3 >= 4:
+        screen.blit(speed2, (s3.x, s3.y))
     screen.blit(speed_range_ring, (s3.x - 50, s3.y - 50))
+    
     screen.blit(sniper, (r.x, r.y))
     screen.blit(sniper, (r2.x, r2.y))
     screen.blit(sniper, (r3.x, r3.y))
-    if rnd <= 2:
+    if bosses == False:
         screen.blit(baddie_img, (b.x, b.y))
-    if rnd == 3:
+    if bosses == True:
         screen.blit(boss, (b.x, b.y))
     screen.blit(player_img, (p.x, p.y))
     pygame.display.flip()
@@ -83,6 +99,7 @@ basetower_img = pygame.image.load("sprites/basic.png")
 lvl_1 = pygame.image.load("sprites/LEVEL_1.png")
 gam3over = pygame.image.load("sprites/gameov3r.png")
 speed = pygame.image.load("sprites/speed.png")
+speed2 = pygame.image.load("sprites/speed2.png")
 speed_range_ring = pygame.image.load("sprites/speed_range_ring.png")
 boss = pygame.image.load("sprites/boss.png")
 sniper = pygame.image.load("sprites/heavy.png")
@@ -92,13 +109,18 @@ lvl = 0
 screen.blit(lvl_1, (0, 0))
 draw()
 num_per_round = 2
-watermelons = 25
+watermelons = 30
 rnd = 0
+bosses = False
+frame_s = 1
+frame_s2 = 1
+frame_s3 = 1
 
 def level_1():
     global rnd
     global num_per_round
     global watermelons
+    global boss
     if b.hp > 0:
         if b.line == 0:
             b.X_RIGHT(200, 2.5)
@@ -137,6 +159,7 @@ def level_1():
         if num_per_round == 0:
             
             if rnd == 3:
+                bosses = False
                 b.x = 0
                 b.y = 350
                 num_per_round = 1
@@ -147,6 +170,7 @@ def level_1():
                 rnd = 999
             
             if rnd == 2:
+                bosses = True
                 b.x = 0
                 b.y = 350
                 num_per_round = 1
@@ -182,7 +206,6 @@ def level_1():
             
 
 def main():
-    #m.wdigit1_draw()
     towernum = 0
     towersel = "basic"
     roundnum = 0
@@ -257,12 +280,26 @@ def main():
             speeddist2 -= 50
             speeddist3 -= 50
             
+            global frame_s
+            global frame_s2
+            global frame_s3
+            
+            if frame_s > 8:
+                frame_s = 0
+            if frame_s2 > 8:
+                frame_s2 = 0
+            if frame_s3 > 8:
+                frame_s3 = 0
+                
             if speeddist <= s.range:
                 b.hp -= s.dmg
+                frame_s += 1
             if speeddist2 <= s2.range:
                 b.hp -= s2.dmg
+                frame_s2 += 1
             if speeddist3 <= s3.range:
                 b.hp -= s3.dmg
+                frame_s3 += 1
             
             sniperdist = math.sqrt(((b.x + 25) - (r.x + 25))**2 + ((b.y + 25) - (r.y + 25))**2)
             sniperdist2 = math.sqrt(((b.x + 25) - (r2.x + 25))**2 + ((b.y + 25) - (r2.y + 25))**2)
