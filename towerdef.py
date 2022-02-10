@@ -47,17 +47,85 @@ def draw_baddie():
     screen.blit(baddie_img, (b.x, b.y))
     pygame.display.flip()
 
+frames_t = 0
+frames_t2 = 0
+frames_t3 = 0
+def basic_frames():
+    global frames_t
+    global frames_t2
+    global frames_t3
+    if frames_t < 3:
+        screen.blit(basic, (t.x, t.y))
+    if frames_t > 3 and frames_t < 6:
+        screen.blit(basic2, (t.x, t.y))
+    if frames_t > 6 and frames_t < 9:
+        screen.blit(basic3, (t.x, t.y))
+    if frames_t > 9 and frames_t < 12:
+        screen.blit(basic4, (t.x, t.y))
+    if frames_t > 12 and frames_t < 15:
+        screen.blit(basic5, (t.x, t.y))
+    if frames_t > 15 and frames_t < 18:
+        screen.blit(basic6, (t.x, t.y))
+    if frames_t > 18 and frames_t < 21:
+        screen.blit(basic7, (t.x, t.y))
+    if frames_t > 21 and frames_t < 24:
+        screen.blit(basic8, (t.x, t.y))
+    if frames_t > 24 and frames_t < 27:
+        screen.blit(basic9, (t.x, t.y))
+    if frames_t > 27:
+        screen.blit(basic10, (t.x, t.y))
+        
+    if frames_t2 < 3:
+        screen.blit(basic, (t2.x, t2.y))
+    if frames_t2 > 3 and frames_t2 < 6:
+        screen.blit(basic2, (t2.x, t2.y))
+    if frames_t2 > 6 and frames_t2 < 9:
+        screen.blit(basic3, (t2.x, t2.y))
+    if frames_t2 > 9 and frames_t2 < 12:
+        screen.blit(basic4, (t2.x, t2.y))
+    if frames_t2 > 12 and frames_t2 < 15:
+        screen.blit(basic5, (t2.x, t2.y))
+    if frames_t2 > 15 and frames_t2 < 18:
+        screen.blit(basic6, (t2.x, t2.y))
+    if frames_t2 > 18 and frames_t2 < 21:
+        screen.blit(basic7, (t2.x, t2.y))
+    if frames_t2 > 21 and frames_t2 < 24:
+        screen.blit(basic8, (t2.x, t2.y))
+    if frames_t2 > 24 and frames_t2 < 27:
+        screen.blit(basic9, (t2.x, t2.y))
+    if frames_t2 > 27:
+        screen.blit(basic10, (t2.x, t2.y))
+        
+    if frames_t3 < 3:
+        screen.blit(basic, (t3.x, t3.y))
+    if frames_t3 > 3 and frames_t3 < 6:
+        screen.blit(basic2, (t3.x, t3.y))
+    if frames_t3 > 6 and frames_t3 < 9:
+        screen.blit(basic3, (t3.x, t3.y))
+    if frames_t3 > 9 and frames_t3 < 12:
+        screen.blit(basic4, (t3.x, t3.y))
+    if frames_t3 > 12 and frames_t3 < 15:
+        screen.blit(basic5, (t3.x, t3.y))
+    if frames_t3 > 15 and frames_t3 < 18:
+        screen.blit(basic6, (t3.x, t3.y))
+    if frames_t3 > 18 and frames_t3 < 21:
+        screen.blit(basic7, (t3.x, t3.y))
+    if frames_t3 > 21 and frames_t3 < 24:
+        screen.blit(basic8, (t3.x, t3.y))
+    if frames_t3 > 24 and frames_t3 < 27:
+        screen.blit(basic9, (t3.x, t3.y))
+    if frames_t3 > 27:
+        screen.blit(basic10, (t3.x, t3.y))
+    
+    screen.blit(basic_range_ring_img, (t.x - 125, t.y - 125))
+    screen.blit(basic_range_ring_img, (t2.x - 125, t2.y - 125))
+    screen.blit(basic_range_ring_img, (t3.x - 125, t3.y - 125))
+
 def draw_all(p):
     global frame_s
     global frame_s2
     global frame_s3
     screen.blit(lvl_1, (0, 0))
-    screen.blit(basetower_img, (t.x, t.y))
-    screen.blit(basic_range_ring_img, (t.x - 125, t.y - 125))
-    screen.blit(basetower_img, (t2.x, t2.y))
-    screen.blit(basic_range_ring_img, (t2.x - 125, t2.y - 125))
-    screen.blit(basetower_img, (t3.x, t3.y))
-    screen.blit(basic_range_ring_img, (t3.x - 125, t3.y - 125))
     
     if frame_s < 4:
         screen.blit(speed, (s.x, s.y))
@@ -77,6 +145,7 @@ def draw_all(p):
         screen.blit(speed2, (s3.x, s3.y))
     screen.blit(speed_range_ring, (s3.x - 50, s3.y - 50))
     
+    basic_frames()
     screen.blit(sniper, (r.x, r.y))
     screen.blit(sniper, (r2.x, r2.y))
     screen.blit(sniper, (r3.x, r3.y))
@@ -95,7 +164,18 @@ screen = pygame.display.set_mode(size)
 basic_range_ring_img = pygame.image.load("sprites/basic_range_ring.png")
 player_img = pygame.image.load("sprites/cursor.png")
 baddie_img = pygame.image.load("sprites/baddie.png")
-basetower_img = pygame.image.load("sprites/basic.png")
+
+basic = pygame.image.load("sprites/basic/basic.png")
+basic2 = pygame.image.load("sprites/basic/basic2.png")
+basic3 = pygame.image.load("sprites/basic/basic3.png")
+basic4 = pygame.image.load("sprites/basic/basic4.png")
+basic5 = pygame.image.load("sprites/basic/basic5.png")
+basic6 = pygame.image.load("sprites/basic/basic6.png")
+basic7 = pygame.image.load("sprites/basic/basic7.png")
+basic8 = pygame.image.load("sprites/basic/basic8.png")
+basic9 = pygame.image.load("sprites/basic/basic9.png")
+basic10 = pygame.image.load("sprites/basic/basic10.png")
+
 lvl_1 = pygame.image.load("sprites/LEVEL_1.png")
 gam3over = pygame.image.load("sprites/gameov3r.png")
 speed = pygame.image.load("sprites/speed.png")
@@ -265,12 +345,33 @@ def main():
             dist2 -= 50
             dist3 -= 50
             
+            global frames_t
+            global frames_t2
+            global frames_t3
+            
             if dist <= t.range:
                 b.hp -= t.dmg
+                frames_t += 1
             if dist2 <= t2.range:
                 b.hp -= t2.dmg
+                frames_t2 += 1
             if dist3 <= t3.range:
                 b.hp -= t3.dmg
+                frames_t3 += 1
+                
+            if dist > t.range:
+                frames_t = 0
+            if dist2 > t2.range:
+                frames_t2 = 0
+            if dist3 > t3.range:
+                frames_t3 = 0
+            
+            if frames_t == 35:
+                frames_t = 0
+            if frames_t2 == 35:
+                frames_t2 = 0
+            if frames_t3 == 35:
+                frames_t3 = 0
             
             speeddist = math.sqrt(((b.x + 25) - (s.x + 25))**2 + ((b.y + 25) - (s.y + 25))**2)
             speeddist2 = math.sqrt(((b.x + 25) - (s2.x + 25))**2 + ((b.y + 25) - (s2.y + 25))**2)
@@ -379,6 +480,7 @@ def main():
                             towernum += 1
                             watermelons -=50
                     
+                    
                 if event.key == pygame.K_1:
                     towersel = "basic"
                     
@@ -387,7 +489,10 @@ def main():
                     
                 if event.key == pygame.K_3:
                     towersel = "sniper"
-                    
-                    
+        
+        if b.pause == 1:
+            frames_t = 0
+            frames_t2 = 0
+            frames_t3 = 0
     
 main()
