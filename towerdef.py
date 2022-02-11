@@ -153,7 +153,11 @@ def draw_all(p):
         screen.blit(baddie_img, (b.x, b.y))
     if bosses == True:
         screen.blit(boss, (b.x, b.y))
+    displaynum = font.render(str(watermelons), 1, white)
+    screen.blit(displaynum, (560, 100))
+    pygame.display.flip
     screen.blit(player_img, (p.x, p.y))
+    
     pygame.display.flip()
 
 # Load in all the code for images and stuff
@@ -195,6 +199,8 @@ bosses = False
 frame_s = 1
 frame_s2 = 1
 frame_s3 = 1
+pygame.init()
+font = pygame.font.SysFont("Times New Roman", 25)
 
 def level_1():
     global rnd
@@ -323,14 +329,15 @@ def main():
             if towernum == 2:
                 r3.x = p.x
                 r3.y = p.y
-        
-    pygame.init()
+                
     p = Player()
     done = False
         
-    # Events go here:    
+    # Event loop:
     while True:
         global num_per_round
+        global watermelons
+        
         if towernum == 3:
             towernum = 0
         if b.pause == 0:
@@ -463,7 +470,6 @@ def main():
                         b.pause = 1
                     
                 if event.key == pygame.K_SPACE:
-                    global watermelons
                     if towersel == "basic":
                         if watermelons >= 25:
                             placetower()
