@@ -54,68 +54,71 @@ def basic_frames():
     global frames_t
     global frames_t2
     global frames_t3
-    if frames_t < 3:
+    if frames_t <= 3:
         screen.blit(basic, (t.x, t.y))
-    if frames_t > 3 and frames_t < 6:
+    if frames_t > 3 and frames_t <= 6:
         screen.blit(basic2, (t.x, t.y))
-    if frames_t > 6 and frames_t < 9:
+    if frames_t > 6 and frames_t <= 9:
         screen.blit(basic3, (t.x, t.y))
-    if frames_t > 9 and frames_t < 12:
+    if frames_t > 9 and frames_t <= 12:
         screen.blit(basic4, (t.x, t.y))
-    if frames_t > 12 and frames_t < 15:
+    if frames_t > 12 and frames_t <= 15:
         screen.blit(basic5, (t.x, t.y))
-    if frames_t > 15 and frames_t < 18:
+    if frames_t > 15 and frames_t <= 18:
         screen.blit(basic6, (t.x, t.y))
-    if frames_t > 18 and frames_t < 21:
+    if frames_t > 18 and frames_t <= 21:
         screen.blit(basic7, (t.x, t.y))
-    if frames_t > 21 and frames_t < 24:
+    if frames_t > 21 and frames_t <= 24:
         screen.blit(basic8, (t.x, t.y))
-    if frames_t > 24 and frames_t < 27:
+    if frames_t > 24 and frames_t <= 27:
         screen.blit(basic9, (t.x, t.y))
-    if frames_t > 27:
+    if frames_t >= 27:
         screen.blit(basic10, (t.x, t.y))
+        b.hp -= t.dmg
         
-    if frames_t2 < 3:
+    if frames_t2 <= 3:
         screen.blit(basic, (t2.x, t2.y))
-    if frames_t2 > 3 and frames_t2 < 6:
+    if frames_t2 > 3 and frames_t2 <= 6:
         screen.blit(basic2, (t2.x, t2.y))
-    if frames_t2 > 6 and frames_t2 < 9:
+    if frames_t2 > 6 and frames_t2 <= 9:
         screen.blit(basic3, (t2.x, t2.y))
-    if frames_t2 > 9 and frames_t2 < 12:
+    if frames_t2 > 9 and frames_t2 <= 12:
         screen.blit(basic4, (t2.x, t2.y))
-    if frames_t2 > 12 and frames_t2 < 15:
+    if frames_t2 > 12 and frames_t2 <= 15:
         screen.blit(basic5, (t2.x, t2.y))
-    if frames_t2 > 15 and frames_t2 < 18:
+    if frames_t2 > 15 and frames_t2 <= 18:
         screen.blit(basic6, (t2.x, t2.y))
-    if frames_t2 > 18 and frames_t2 < 21:
+    if frames_t2 > 18 and frames_t2 <= 21:
         screen.blit(basic7, (t2.x, t2.y))
-    if frames_t2 > 21 and frames_t2 < 24:
+    if frames_t2 > 21 and frames_t2 <= 24:
         screen.blit(basic8, (t2.x, t2.y))
-    if frames_t2 > 24 and frames_t2 < 27:
+    if frames_t2 > 24 and frames_t2 <= 27:
         screen.blit(basic9, (t2.x, t2.y))
-    if frames_t2 > 27:
+    if frames_t2 >= 27:
         screen.blit(basic10, (t2.x, t2.y))
+        b.hp -= t2.dmg
         
-    if frames_t3 < 3:
+    if frames_t3 <= 3:
         screen.blit(basic, (t3.x, t3.y))
-    if frames_t3 > 3 and frames_t3 < 6:
+    if frames_t3 > 3 and frames_t3 <= 6:
         screen.blit(basic2, (t3.x, t3.y))
-    if frames_t3 > 6 and frames_t3 < 9:
+    if frames_t3 > 6 and frames_t3 <= 9:
         screen.blit(basic3, (t3.x, t3.y))
-    if frames_t3 > 9 and frames_t3 < 12:
+    if frames_t3 > 9 and frames_t3 <= 12:
         screen.blit(basic4, (t3.x, t3.y))
-    if frames_t3 > 12 and frames_t3 < 15:
+    if frames_t3 > 12 and frames_t3 <= 15:
         screen.blit(basic5, (t3.x, t3.y))
-    if frames_t3 > 15 and frames_t3 < 18:
+    if frames_t3 > 15 and frames_t3 <= 18:
         screen.blit(basic6, (t3.x, t3.y))
-    if frames_t3 > 18 and frames_t3 < 21:
+    if frames_t3 > 18 and frames_t3 <= 21:
         screen.blit(basic7, (t3.x, t3.y))
-    if frames_t3 > 21 and frames_t3 < 24:
+    if frames_t3 > 21 and frames_t3 <= 24:
         screen.blit(basic8, (t3.x, t3.y))
-    if frames_t3 > 24 and frames_t3 < 27:
+    if frames_t3 > 24 and frames_t3 <= 27:
         screen.blit(basic9, (t3.x, t3.y))
-    if frames_t3 > 27:
+    if frames_t3 >= 27:
         screen.blit(basic10, (t3.x, t3.y))
+        b.hp -= t3.dmg
     
     screen.blit(basic_range_ring_img, (t.x - 125, t.y - 125))
     screen.blit(basic_range_ring_img, (t2.x - 125, t2.y - 125))
@@ -154,7 +157,13 @@ def draw_all(p):
     if bosses == True:
         screen.blit(boss, (b.x, b.y))
     displaynum = font.render(str(watermelons), 1, white)
+    displayhp = font.render(str(HP), 1, white)
+    
+    displaybad = font.render(str(round(b.hp / 100)), 1, white)
+    
     screen.blit(displaynum, (560, 100))
+    screen.blit(displayhp, (610, 100))
+    screen.blit(displaybad, (660, 100))
     pygame.display.flip
     screen.blit(player_img, (p.x, p.y))
     
@@ -201,6 +210,7 @@ frame_s2 = 1
 frame_s3 = 1
 pygame.init()
 font = pygame.font.SysFont("Times New Roman", 25)
+HP = 5
 
 def level_1():
     global rnd
@@ -225,16 +235,21 @@ def level_1():
             b.line = 42
                     
         if b.line == 42:
-            screen.blit(gam3over, (0, 0))  
-            pygame.display.flip()
-            time.sleep(3)
-            pygame.quit()
-            quit()
+            global HP
+            HP -= 1
+            b.x = 0
+            b.y = 350
+            b.line = 0
+            if HP == 0:
+                screen.blit(gam3over, (0, 0))  
+                pygame.display.flip()
+                time.sleep(3)
+                pygame.quit()
+                quit()
             
     if b.hp < 1:
         watermelons += 5
-        b.hp_mod += .5
-        print("you have", watermelons, "watermelons!")
+        b.hp_mod += .55
         if num_per_round >= 0:
             b.x = 0
             b.y = 350
@@ -357,13 +372,10 @@ def main():
             global frames_t3
             
             if dist <= t.range:
-                b.hp -= t.dmg
                 frames_t += 1
             if dist2 <= t2.range:
-                b.hp -= t2.dmg
                 frames_t2 += 1
             if dist3 <= t3.range:
-                b.hp -= t3.dmg
                 frames_t3 += 1
                 
             if dist > t.range:

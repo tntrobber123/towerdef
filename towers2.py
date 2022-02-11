@@ -5,4 +5,4 @@ class Tower2(pygame.sprite.Sprite):
         self.x = 1000
         self.y = 1000
         self.range = 150
-        self.dmg = 5
+        self.dmg = 50
